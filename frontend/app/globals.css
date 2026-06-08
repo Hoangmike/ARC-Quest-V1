@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --font-display: 'Orbitron', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #050810;
+  color: #e2e8f0;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #080c18; }
+::-webkit-scrollbar-thumb { background: #1e2d4a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+
+::selection { background: rgba(59,130,246,0.3); color: #93c5fd; }
+
+@layer components {
+
+  /* ─── Buttons ─── */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-medium
+           rounded-lg transition-all duration-200 active:scale-[0.97]
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+  .btn-primary {
+    @apply btn px-5 py-2.5 text-sm text-white bg-grd-btn
+           shadow-glow hover:brightness-110 hover:shadow-blue;
+  }
+  .btn-outline {
+    @apply btn px-5 py-2.5 text-sm text-q-blue border border-q-blue/40
+           bg-q-blue/5 hover:bg-q-blue/10 hover:border-q-blue/70;
+  }
+  .btn-ghost {
+    @apply btn px-3 py-2 text-sm text-q-muted hover:text-q-text;
+  }
+  .btn-danger {
+    @apply btn px-5 py-2.5 text-sm text-white bg-gradient-to-r from-red-700 to-red-500;
+  }
+
+  /* ─── Cards ─── */
+  .card {
+    @apply bg-q-card border border-q-border rounded-xl p-5 shadow-card
+           relative overflow-hidden;
+  }
+  .card::before {
+    content: '';
+    @apply absolute inset-0 rounded-xl pointer-events-none;
+    background: linear-gradient(135deg, rgba(59,130,246,0.04) 0%, transparent 60%);
+  }
+  .card-glow {
+    @apply card hover:border-q-blue/40 hover:shadow-blue transition-all duration-300;
+  }
+  .card-active {
+    @apply card border-q-blue/50 shadow-blue;
+  }
+
+  /* ─── Stat pill ─── */
+  .stat {
+    @apply bg-q-surface border border-q-border rounded-xl p-4 flex flex-col gap-1;
+  }
+  .stat-val {
+    @apply text-q-text font-mono text-2xl font-semibold leading-none;
+  }
+  .stat-label {
+    @apply text-q-muted text-xs;
+  }
+
+  /* ─── Input ─── */
+  .input {
+    @apply w-full bg-q-surface border border-q-border rounded-lg px-4 py-3
+           text-q-text placeholder:text-q-muted text-sm
+           focus:outline-none focus:border-q-blue/60 focus:ring-1 focus:ring-q-blue/20
+           transition-colors duration-200;
+  }
+
+  /* ─── Badge rarity ─── */
+  .rarity-common    { @apply text-slate-400 bg-slate-500/10 border-slate-500/30; }
+  .rarity-rare      { @apply text-blue-400  bg-blue-500/10  border-blue-500/30; }
+  .rarity-epic      { @apply text-purple-400 bg-purple-500/10 border-purple-500/30; }
+  .rarity-legendary { @apply text-yellow-400 bg-yellow-500/10 border-yellow-500/30; }
+
+  /* ─── Glowing text ─── */
+  .glow-text {
+    text-shadow: 0 0 20px rgba(59,130,246,0.8), 0 0 40px rgba(59,130,246,0.4);
+  }
+  .cyan-glow-text {
+    text-shadow: 0 0 20px rgba(6,182,212,0.8), 0 0 40px rgba(6,182,212,0.3);
+  }
+
+  /* ─── Hex badge (decorative) ─── */
+  .hex-icon {
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  }
+
+  /* ─── Scanning line ─── */
+  .scan-line {
+    @apply absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-q-blue/60 to-transparent animate-scan pointer-events-none;
+  }
+
+  /* ─── Divider ─── */
+  .divider {
+    @apply border-t border-q-border;
+  }
+
+  /* ─── Tabs ─── */
+  .tab {
+    @apply px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200
+           text-q-muted hover:text-q-text;
+  }
+  .tab-active {
+    @apply tab text-q-blue bg-q-blue/10 border border-q-blue/30;
+  }
+
+  /* ─── Nav link ─── */
+  .nav-item {
+    @apply flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium
+           text-q-muted hover:text-q-text hover:bg-q-surface transition-all duration-150;
+  }
+  .nav-item-active {
+    @apply nav-item text-q-blue bg-q-blue/10 border border-q-blue/20;
+  }
+
+  /* ─── Shine overlay ─── */
+  .shine { position: relative; overflow: hidden; }
+  .shine::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -75%; width: 50%; height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
+  }
+  .shine:hover::after { left: 125%; }
+
+  /* ─── Progress bar ─── */
+  .progress-bar {
+    @apply h-1 rounded-full bg-q-dim overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full rounded-full bg-grd-btn transition-all duration-500;
+  }
+
+  /* ─── Tx status ─── */
+  .tx-success {
+    @apply mt-3 px-3 py-2 rounded-lg bg-q-green/10 border border-q-green/25 text-q-green text-xs;
+  }
+  .tx-error {
+    @apply mt-3 px-3 py-2 rounded-lg bg-q-red/10 border border-q-red/25 text-q-red text-xs;
+  }
+}
