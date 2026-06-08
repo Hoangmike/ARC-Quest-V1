@@ -29,7 +29,7 @@ export default function StakePage() {
       setTotal(ethers.formatEther(await sc.totalStaked()))
       const pc = new ethers.Contract(ADDR.POINT_TOKEN, POINT_TOKEN_ABI, signer)
       const allow = await pc.allowance(address, ADDR.STAKE_POOL)
-      setNeedApproval(allow === 0n)
+      setNeedApproval(allow.toString() === '0')
     } catch (e) { console.error(e) }
   }, [signer, address])
 
