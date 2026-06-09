@@ -36,12 +36,12 @@ export function Web3Provider({ children }: { children: React.ReactNode }) {
   const isCorrectNetwork = chainId === ARC_TESTNET.chainIdDecimal
 
   const refresh = useCallback(async () => {
-    if (!provider || !address) return
-    try {
-      const c = new ethers.Contract(ADDR.POINT_TOKEN, POINT_TOKEN_ABI, provider)
-      const b = await c.balanceOf(address)
-      setBalance(ethers.formatEther(b))
-    } catch { setBalance('0') }
+  if (!provider || !address) return
+  try {
+    // Dùng getBalance thay vì balanceOf vì USDC là native token trên Arc
+    const bal = await provider.getBalance(address)
+    setBalance(ethers.formatEther(bal))
+  } catch { setBalance('0') }
   }, [provider, address])
 
   const connect = useCallback(async () => {
